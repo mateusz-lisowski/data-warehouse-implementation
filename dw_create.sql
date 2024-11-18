@@ -1,47 +1,48 @@
 CREATE TABLE shows (
-    id UUID PRIMARY KEY,
-    show_type VARCHAR NOT NULL
+    id UNIQUEIDENTIFIER PRIMARY KEY,
+    show_type NVARCHAR(255) NOT NULL
 );
 
 CREATE TABLE viewers (
-    id UUID PRIMARY KEY,
-    name VARCHAR NOT NULL,
-    age_category VARCHAR NOT NULL,
-    is_active BOOLEAN NOT NULL
+    id UNIQUEIDENTIFIER PRIMARY KEY,
+    name NVARCHAR(255) NOT NULL,
+    age_category NVARCHAR(50) NOT NULL,
+    is_active BIT NOT NULL
 );
 
 CREATE TABLE cities (
-    id UUID PRIMARY KEY,
-    name VARCHAR NOT NULL,
-    population_category VARCHAR NOT NULL
+    id UNIQUEIDENTIFIER PRIMARY KEY,
+    name NVARCHAR(255) NOT NULL,
+    population_category NVARCHAR(50) NOT NULL
 );
 
 CREATE TABLE date (
-    id UUID PRIMARY KEY,
+    id UNIQUEIDENTIFIER PRIMARY KEY,
     date DATE NOT NULL,
     year BIGINT NOT NULL,
     month SMALLINT NOT NULL,
-    working_day BOOLEAN NOT NULL
+    working_day BIT NOT NULL
 );
 
 CREATE TABLE time (
-    id UUID PRIMARY KEY,
+    id UNIQUEIDENTIFIER PRIMARY KEY,
     hour SMALLINT NOT NULL
 );
 
 CREATE TABLE junk (
-    id UUID PRIMARY KEY,
-    payment_type VARCHAR NOT NULL
+    id UNIQUEIDENTIFIER PRIMARY KEY,
+    payment_type NVARCHAR(255) NOT NULL
 );
 
 CREATE TABLE tickets_sales (
-    price DECIMAL NOT NULL,
-    show_id UUID NOT NULL,
-    viewer_id UUID NOT NULL,
-    city_id UUID NOT NULL,
-    date_id UUID NOT NULL,
-    time_id UUID NOT NULL,
-    junk_id UUID NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    show_id UNIQUEIDENTIFIER NOT NULL,
+    viewer_id UNIQUEIDENTIFIER NOT NULL,
+    city_id UNIQUEIDENTIFIER NOT NULL,
+    date_id UNIQUEIDENTIFIER NOT NULL,
+    time_id UNIQUEIDENTIFIER NOT NULL,
+    junk_id UNIQUEIDENTIFIER NOT NULL,
+    PRIMARY KEY (show_id, viewer_id, city_id, date_id, time_id, junk_id),
     FOREIGN KEY (show_id) REFERENCES shows (id),
     FOREIGN KEY (viewer_id) REFERENCES viewers (id),
     FOREIGN KEY (city_id) REFERENCES cities (id),
